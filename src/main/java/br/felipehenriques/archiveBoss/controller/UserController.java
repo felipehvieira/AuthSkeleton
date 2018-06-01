@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.felipehenriques.archiveBoss.model.User;
 import br.felipehenriques.archiveBoss.repository.UserRepository;
+import br.felipehenriques.archiveBoss.service.UserService;
 
 @RestController
 @RequestMapping("/users")
@@ -21,6 +22,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserService userSevice;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public Iterable<User> getUsers() {
@@ -39,7 +43,7 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> addUser(@RequestBody User user) {
-		return new ResponseEntity<>(userRepository.save(user), HttpStatus.CREATED);
+		return new ResponseEntity<>(userSevice.newUser(user), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, params={"id"} )

@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class TokenAuthenticationService {
 
 	private static final int EXPIRATION_HOURS = 24; // 10 days
-	private static final String SECRET = "HACKATHONCONDUCTOR2017";
+	private static final String SECRET = "CHAVESECRETA123";
 	private static final String TOKEN_PREFIX = "Bearer";
 	private static final String HEADER = "Authorization";
 
@@ -25,7 +25,7 @@ public class TokenAuthenticationService {
 		String JWT = Jwts.builder()
 				.setSubject(username)
 				.setExpiration(new Date(TimeUnit.HOURS.toMillis(EXPIRATION_HOURS) + new Date().getTime()))
-				.signWith(SignatureAlgorithm.ES512, SECRET)
+				.signWith(SignatureAlgorithm.HS512, SECRET)
 				.compact();
 		response.addHeader(HEADER, TOKEN_PREFIX + " "+ JWT);
 	}
